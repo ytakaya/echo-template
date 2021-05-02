@@ -12,8 +12,4 @@ WORKDIR /app
 
 COPY --from=build /go/app/app .
 
-RUN addgroup go \
-  && adduser -D -G go go \
-  && chown -R go:go /app/app
-
 CMD ["./app"]

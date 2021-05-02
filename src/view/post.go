@@ -1,7 +1,15 @@
 package view
 
-import "github.com/labstack/echo"
+import (
+	"net/http"
+
+	"github.com/labstack/echo"
+)
 
 func GetAllPosts(c echo.Context) error {
-	return nil
+	body := map[string]string{
+		"message": "hello from go api.",
+	}
+
+	return c.JSON(http.StatusOK, body)
 }
