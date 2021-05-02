@@ -1,15 +1,11 @@
-FROM golang:1.16.3-alpine as build
+FROM golang:1.16.3
 
 WORKDIR /go/app
 
+RUN go get github.com/go-sql-driver/mysql
+
 COPY src .
 
-RUN go build -o app
+# RUN go build -o app
 
-FROM alpine
-
-WORKDIR /app
-
-COPY --from=build /go/app/app .
-
-CMD ["./app"]
+CMD ["go", "run", "main.go"]
