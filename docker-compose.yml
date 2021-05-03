@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
       target: builder
-    command: "go run main.go"
+    command: "air -c .air.toml"
     volumes:
         - ./src:/go/app
     ports:
