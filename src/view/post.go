@@ -15,7 +15,6 @@ type Post struct {
 func GetAllPosts(c echo.Context) error {
 	db := controller.OpenMySqlConnection()
 	defer db.Close()
-	db.AutoMigrate(&Post{})
 
 	var posts []Post
 	db.Find(&posts)
