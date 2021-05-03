@@ -2,6 +2,8 @@ package controller
 
 import (
 	"fmt"
+	"log"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "gorm.io/driver/mysql"
@@ -15,13 +17,16 @@ const (
 )
 
 func OpenMySqlConnection() *gorm.DB {
-	connect := fmt.Sprintf("%s:%s@%s/%s", DBUser, DBPassword, DBHost, DB)
-	fmt.Println(connect)
-	db, err := gorm.Open("mysql", connect)
-	if err != nil {
-		panic("failed to connect database.")
+	connect := fmt.Sprintf("%s:%s@%s/%s?charset=utf8mb4", DBUser, DBPassword, DBHost, DB)
+	for count := 0; count < 30; count++ {
+		db, err := gorm.Open("mysql", connect)
+		if err == nil {
+			db.LogMode(true)
+			return db
+		}
+		log.Println("Not ready. Retry connecting...")
+		time.Sleep(time.Second)
 	}
 
-	db.LogMode(true)
-	return db
+	panic("failed to connect database.")
 }
