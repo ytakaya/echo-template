@@ -21,4 +21,8 @@ func initDB() {
 
 func initRouting(e *echo.Echo) {
 	e.GET("/posts", view.GetAllPosts)
+	e.GET("/post/:id", view.GetPost)
+	e.POST("/posts", view.CreatePost)
+	e.PUT("/posts/:id", view.UpdatePost)
+	e.DELETE("/posts/:id", view.DeletePost)
 }
